@@ -3,16 +3,17 @@ from flask import Flask, jsonify, request, abort
 
 app = Flask(__name__)
 DATABASE = 'movies.db'
-
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
 
+# Create the movies table if it doesn't already exist
 with sqlite3.connect(DATABASE) as conn:
     conn.execute('''CREATE TABLE IF NOT EXISTS movies
     (id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT DEFAULT '',
     release_year INTEGER NOT NULL)''')
+
 
 @app.route('/movies')
 def get_movies():
@@ -35,7 +36,8 @@ def get_movie(id):
             return jsonify(movie)
         else:
             abort(404)
-            
+
+
 @app.route('/movies', methods=['POST'])
 def create_movie():
     if not request.json or not 'title' in request.json or not 'release_year' in request.json:
@@ -51,6 +53,7 @@ def create_movie():
         movie['id'] = cur.lastrowid
         conn.commit()
     return jsonify(movie), 201
+
 
 @app.route('/movies/<int:id>', methods=['PUT'])
 def update_movie(id):
@@ -68,6 +71,7 @@ def update_movie(id):
     conn.close()
 
     return jsonify(data), 201
+
 
 if __name__ == '__main__':
     app.run(debug=True)
