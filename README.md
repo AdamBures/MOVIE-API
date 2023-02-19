@@ -7,7 +7,7 @@ A simple RESTful API for managing a collection of movies.
 To get started with the API, you'll need to have Python 3 installed on your system.
 
 1. Clone this repository:
-git clone https://github.com/your-username/movie-api.git
+git clone https://github.com/AdamBures/movie-api.git
 
 2. Install the dependencies:
 pip install -r requirements.txt
