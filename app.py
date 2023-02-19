@@ -6,7 +6,6 @@ DATABASE = 'movies.db'
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
 
-# Create the movies table if it doesn't already exist
 with sqlite3.connect(DATABASE) as conn:
     conn.execute('''CREATE TABLE IF NOT EXISTS movies
     (id INTEGER PRIMARY KEY,
