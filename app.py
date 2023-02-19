@@ -3,10 +3,10 @@ from flask import Flask, jsonify, request, abort
 
 app = Flask(__name__)
 DATABASE = 'movies.db'
+
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_SORT_KEYS'] = False
 
-# Create the movies table if it doesn't already exist
 with sqlite3.connect(DATABASE) as conn:
     conn.execute('''CREATE TABLE IF NOT EXISTS movies
     (id INTEGER PRIMARY KEY,
@@ -68,8 +68,6 @@ def update_movie(id):
     conn.close()
 
     return jsonify(data), 201
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
